@@ -42,16 +42,17 @@ A3-IAC-JITHIN-8876281/
 - **Resources**: VPC, public/private subnets, route table, internet gateway, outputs
 - **Command**:
 ```bash
-aws cloudformation create-stack \
-  --stack-name jithin-networking-stack \
-  --template-body file://templates/network.yaml \
-  --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack   --stack-name jithin-networking-stack   --template-body file://templates/network.yaml   --capabilities CAPABILITY_NAMED_IAM
 ```
 
 **Screenshots**:
 
 ![Network Stack Created](screenshots/network%20creation%20success.png)  
-![VPC and Subnets via CLI](screenshots/network-ec2-CLI.png)
+![VPC and Subnets via CLI](screenshots/network-ec2-CLI.png)  
+![VPC](screenshots/vpc.png)  
+![Subnets](screenshots/subnets.png)  
+![Internet Gateway](screenshots/Internet-gateway.png)  
+![Stack Output](screenshots/network-output-stack.png)
 
 ---
 
@@ -61,17 +62,15 @@ aws cloudformation create-stack \
 - **Resources**: Security Group for MySQL, RDS Instance in private subnet
 - **Command**:
 ```bash
-aws cloudformation create-stack \
-  --stack-name jithin-rds-stack \
-  --template-body file://templates/rds.yaml \
-  --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack   --stack-name jithin-rds-stack   --template-body file://templates/rds.yaml   --capabilities CAPABILITY_NAMED_IAM
 ```
 
 **Screenshots**:
 
 ![RDS Stack Created](screenshots/rds%20creation%20success.png)  
 ![RDS CLI Confirmation](screenshots/RDS%20CLI.png)  
-![Running RDS Instance](screenshots/RDS%20running%20instance.png)
+![Running RDS Instance](screenshots/RDS%20running%20instance.png)  
+![RDS Stack Output](screenshots/rds-ouput-stack.png)
 
 ---
 
@@ -81,10 +80,7 @@ aws cloudformation create-stack \
 - **Resources**: EC2 instance, security group allowing SSH
 - **Command**:
 ```bash
-aws cloudformation create-stack \
-  --stack-name jithin-ec2-stack \
-  --template-body file://templates/ec2.yaml \
-  --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack   --stack-name jithin-ec2-stack   --template-body file://templates/ec2.yaml   --capabilities CAPABILITY_NAMED_IAM
 ```
 
 **Screenshots**:
@@ -92,7 +88,8 @@ aws cloudformation create-stack \
 ![EC2 Stack Created](screenshots/ec2%20creation%20success.png)  
 ![Running EC2 Instance](screenshots/EC2%20running%20instance.png)  
 ![Key Pair Used](screenshots/key%20pair.png)  
-![Security Groups](screenshots/security%20groups.png)
+![Security Groups](screenshots/security%20groups.png)  
+![EC2 Stack Output](screenshots/ec2-output-stack.png)
 
 ---
 
@@ -102,4 +99,3 @@ aws cloudformation create-stack \
 - The `.pem` key file for EC2 access is retained locally and not pushed to GitHub.
 
 ---
-
