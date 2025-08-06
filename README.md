@@ -89,13 +89,16 @@ aws cloudformation create-stack   --stack-name jithin-ec2-stack   --template-bod
 ![EC2 Stack Output](screenshots/ec2-output-stack.png)
 
 ---
-**Student Name:** Jithin Jyothi  
-**Student ID:** 8876281  
----
 
 ## Notes
 
 - The `aws/` folder is excluded via `.gitignore` to avoid committing sensitive CLI configuration.
 - The `.pem` key file for EC2 access is retained locally and not pushed to GitHub.
+
+---
+## Author
+
+- Student Name: Jithin Jyothi
+- Student ID: 8876281  
 
 ---
