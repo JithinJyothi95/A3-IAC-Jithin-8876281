@@ -1,0 +1,23 @@
+# Ignore AWS key files
+*.pem
+
+# Ignore CLI installer
+awscliv2.zip
+
+# Ignore any temp files or logs
+*.log
+*.tmp
+
+# Ignore Python/IDE-specific files (optional, just in case)
+__pycache__/
+*.py[cod]
+*.swp
+.DS_Store
+.vscode/
+.idea/
+
+# Ignore AWS configuration if present
+aws/
+
+# Ignore OS-specific files
+Thumbs.db

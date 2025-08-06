@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Create an RDS MySQL DB Instance in Private Subnet for Jithin (8876281)"
+
+Resources:
+  JithinRDSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow MySQL access
+      VpcId:
+        Fn::ImportValue: JithinA3-VPC-ID
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: jithin-rds-sg
+
+  JithinRDSInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceClass: db.t3.micro
+      Engine: mysql
+      MasterUsername: admin
+      MasterUserPassword: Secret5555
+      VPCSecurityGroups:
+        - !Ref JithinRDSSecurityGroup
+      DBSubnetGroupName:
+        Fn::ImportValue: JithinA3-RDS-Subnet-Group
+      BackupRetentionPeriod: 0
+      PubliclyAccessible: true
+      DeletionProtection: false
+      MultiAZ: false
+      DBInstanceIdentifier: jithin-db-instance
+      Tags:
+        - Key: Owner
+          Value: Jithin Jyothi
+
+Outputs:
+  RDSInstanceEndpoint:
+    Description: Endpoint for RDS
+    Value: !GetAtt JithinRDSInstance.Endpoint.Address
+    Export:
+      Name: JithinA3-RDS-Endpoint

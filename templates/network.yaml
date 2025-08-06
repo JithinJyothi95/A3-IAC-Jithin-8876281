@@ -1,0 +1,103 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "VPC, Subnets, and Routing for Jithin (ID: 8876281)"
+
+Resources:
+  JithinA3VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: jithin-vpc
+    Metadata:
+      Comment: "Main VPC"
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref JithinA3VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !Select [0, !GetAZs '']
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: jithin-public-subnet
+
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref JithinA3VPC
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: !Select [1, !GetAZs '']
+      Tags:
+        - Key: Name
+          Value: jithin-private-subnet
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: jithin-igw
+
+  AttachIGW:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref JithinA3VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref JithinA3VPC
+      Tags:
+        - Key: Name
+          Value: jithin-public-rt
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachIGW
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRTAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet
+
+  RDSSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for RDS
+      SubnetIds:
+        - !Ref PublicSubnet
+        - !Ref PrivateSubnet
+      Tags:
+        - Key: Name
+          Value: jithin-rds-subnet-group
+
+Outputs:
+  JithinA3VPCId:
+    Value: !Ref JithinA3VPC
+    Export:
+      Name: JithinA3-VPC-ID
+
+  PublicSubnetId:
+    Value: !Ref PublicSubnet
+    Export:
+      Name: JithinA3-Public-Subnet-ID
+
+  PrivateSubnetId:
+    Value: !Ref PrivateSubnet
+    Export:
+      Name: JithinA3-Private-Subnet-ID
+
+  RDSSubnetGroup:
+    Value: !Ref RDSSubnetGroup
+    Export:
+      Name: JithinA3-RDS-Subnet-Group
