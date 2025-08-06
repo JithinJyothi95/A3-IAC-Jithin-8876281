@@ -1,9 +1,6 @@
 
 # Assignment 3: Deploying AWS Infrastructure with CloudFormation
 
-**Student Name:** Jithin Jyothi  
-**Student ID:** 8876281  
-
 ---
 
 ## Project Overview
@@ -91,6 +88,9 @@ aws cloudformation create-stack   --stack-name jithin-ec2-stack   --template-bod
 ![Security Groups](screenshots/security%20groups.png)  
 ![EC2 Stack Output](screenshots/ec2-output-stack.png)
 
+---
+**Student Name:** Jithin Jyothi  
+**Student ID:** 8876281  
 ---
 
 ## Notes
